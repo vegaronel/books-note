@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark Mode Toggle</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+</head>
+<body>
+    <div class="w-full p-3 flex flex-col">
+        <button id="darkModeToggle" class="dark_btn float-right">Dark Mode</button>
+
+        <form action="/add" method="post" class="shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <input type="hidden" name="userId" value="<%= userId %>">
+            <div class="mx-auto">
+                <label for="title" class="block text-sm font-bold mb-2">Title</label>
+                <input value="<%= result.title %>" class="w-full border-2 rounded appearance-none focus:outline-none focus:shadow-outline p-1" type="text" name="title" placeholder="Title">
+            </div>
+
+            <div class="mx-auto">
+                <label for="summary" class="block text-sm font-bold mb-2">Summary</label>
+                <input value="<%= result.summary %>" class="w-full border-2 rounded appearance-none focus:outline-none focus:shadow-outline p-1" type="text" name="summary" placeholder="Summary">
+            </div>
+
+            <% 
+                let formattedDate = '';
+                if (result.date_read) {
+                    const date = new Date(result.date_read);
+                    formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+                }
+            %>
+            
+            <div class="mx-auto">
+                <label for="date_read" class="block text-sm font-bold mb-2">Date Read</label>
+                <input value="<%= formattedDate %>" class="w-full border-2 rounded appearance-none focus:outline-none focus:shadow-outline p-1" type="date" name="date_read" placeholder="Rate">
+            </div>
+        
+
+            <div class="mx-auto">
+                <label for="ratings" class="block text-sm font-bold mb-2">Rate</label>
+                <input value="<%= result.ratings %>" class="w-full border-2 rounded appearance-none focus:outline-none focus:shadow-outline p-1" type="text" name="ratings" placeholder="Rate">
+            </div>
+
+            <button type="submit" class="dark_btn mt-3">Submit</button>
+        
+        </form>
+     
+
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

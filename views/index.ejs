@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Books Note</title>
+  <link rel="stylesheet" href="/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="w-4/5 mx-auto p-4">
+        <!-- HEADER AUTH0R -->
+        <div class="author flex justify-between">
+            <div>
+                <h1 class="text-4xl">Ronel Vega</h1>
+                <h2 class="text-xl">Books i've read</h2>
+            </div>
+            <div>
+                <button id="darkModeToggle" class="dark_btn">Dark Mode</button>
+            </div>
+        </div>
+        <div class="flex flex-col gap-y-2 mt-4">
+            <p>Dive into the world of stories, knowledge, and inspiration! This website is my personal haven for sharing and documenting the books I've read. Whether it's fiction, non-fiction, self-help, or fantasy, each book has left an impact on my journey.</p>
+            <p>You can browse through my collection and sort it however you like—by the 
+                <a href="/book/sort/date_read"><span class="sort">date</span></a> I added them, their 
+                <a href="/book/sort/ratings"><span class="sort">ratings</span></a>, or even 
+                <a href="/book/sort/alphabetically"><span class="sort">alphabetically</span></a>. 
+                Whether you’re looking for your next read or just curious about my literary adventures, there’s something here for every book lover.</p>
+            <hr class="border-2">
+        </div>
+        
+
+        <div class="mt-3">
+            <button class="px-4 py-2 dark_btn"><a href="/add">Add</a></button>
+        </div>
+       
+        <% books.forEach(book => { %>
+            <!-- MAIN CONTENT -->
+            <div class="mt-4">
+                <div class="flex gap-4 row">
+                    <div class="w-full">
+                        <div class="flex justify-between">
+                            <h1 class="text-2xl"><%= book.title %></h1>
+                            <div class="float-end flex gap-3">
+                                <!-- Edit Button -->
+                                <form action="/edit" method="post">
+                                    <input type="hidden" name="edit" value="<%= book.id %>">
+                                    <button class=""><i class="fa-regular fa-pen-to-square"></i></button>
+                                </form>
+                                
+                                <!-- Delete Button -->
+                                <button type="button" 
+                                        class="delete-btn" 
+                                        data-id="<%= book.id %>">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <% 
+                            const date = new Date(book.date_read);
+                            const formattedDate = `${date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1}/${date.getDate() < 10 ? '0' + date.getDate() : date.getDate()}/${date.getFullYear()}`;
+                        %>
+                        <div class="flex gap-3">
+                            <p>Date read: <%= formattedDate %></p> 
+                            <p class="">How strongly I recommend it : <%= book.ratings %>/10</p>
+                        </div>
+                        <p class="text-md"><%= book.summary %></p>
+                    </div>
+                </div>
+                <hr class="border-1">
+            </div>
+        <% }); %>
+        
+        <!-- Delete Confirmation Modal -->
+        <div id="deleteModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+            <div class="bg-white rounded-lg shadow-lg p-6 w-96">
+                <h3 class="text-lg font-semibold text-gray-800">Confirm Deletion</h3>
+                <p class="text-gray-600 mt-4">
+                    Are you sure you want to delete this book? This action cannot be undone.
+                </p>
+                <form id="deleteForm" action="/delete" method="post">
+                    <input type="hidden" name="id" id="deleteBookId">
+                    <div class="flex justify-end space-x-4 mt-6">
+                        <button type="button" id="cancelDelete" class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400">
+                            Cancel
+                        </button>
+                        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                            Delete
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+
+
+    </div>
+
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const deleteButtons = document.querySelectorAll(".delete-btn");
+    const deleteModal = document.getElementById("deleteModal");
+    const cancelDelete = document.getElementById("cancelDelete");
+    const deleteBookId = document.getElementById("deleteBookId");
+
+    deleteButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            // Get the book ID from the button's data attribute
+            const bookId = button.getAttribute("data-id");
+            // Set the book ID in the hidden input field
+            deleteBookId.value = bookId;
+            // Show the modal
+            deleteModal.classList.remove("hidden");
+        });
+    });
+
+    cancelDelete.addEventListener("click", () => {
+        // Hide the modal
+        deleteModal.classList.add("hidden");
+    });
+});
+
+
+    </script>
+
+    <script src="/script.js"></script>
+</body>
+</html>

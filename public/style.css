@@ -1,0 +1,50 @@
+/* Base styles */
+@import url('https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+:root {
+    --text-color: #0c0903;
+    --bg-color: #fefdfb;
+    --primary-color: #cea836;
+    --secondary-color: #c9e288;
+    --accent-color: #a0dc6f;
+  }
+  
+  html.dark-mode {
+    --text-color: #fcf9f3;
+    --bg-color: #040301;
+    --primary-color: #c9a331;
+    --secondary-color: #5d771d;
+    --accent-color: #549023;
+  }
+  *{
+    font-family: "Host Grotesk", sans-serif;
+  }
+  /* Apply the variables */
+  body {
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+  }
+  a{
+    text-decoration: none;
+    color: var(--primary-color);
+  }
+
+  .sort{
+    color: var(--primary-color);
+  }
+  
+  .dark_btn {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .dark_btn:hover {
+    background-color: var(--accent-color);
+  }
+  
+  
