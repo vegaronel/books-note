@@ -1,6 +1,6 @@
 import bodyParser from "body-parser";
 import express from "express";
-import pg, {Pool} from 'pg';
+import pg from 'pg';
 
 const app = express();
 const port = 3000;
@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 
 const db = new pg.Client({
-  connectionString: process.env.DATABASE_URL || 'postgres://postgres:admin123@localhost:5432/books',
+  connectionString: 'postgres://books_39aj_user:ZduaAL4RHnztjsqEqgrtryH97reXxbqN@dpg-ct4rb6t6l47c73farmt0-a:5432/books_39aj' || 'postgres://postgres:admin123@localhost:5432/books',
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
 });
 
