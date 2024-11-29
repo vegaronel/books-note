@@ -10,14 +10,12 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 
 const db = new pg.Client({
-    user: 'books_39aj_user',         // Username from Render
-    password: 'ZduaAL4RhnztjsqEqgrtryH97reXxbqN', // Password from Render
-    host: 'dpg-ct4rb6t6l47c73farmt0-a',  // Hostname from Render
-    port: 5432,                         // Port from Render (default for PostgreSQL)
-    database: 'books_39aj',             // Database name from Render
-    ssl: { rejectUnauthorized: false }  // Required for secure connections on Render
-  });
-  
+    user:'books_39aj_user',
+    password: 'ZduaAL4RHnztjsqEqgrtryH97reXxbqN',
+    host:'dpg-ct4rb6t6l47c73farmt0-a',
+    port:5432,
+    database:'books_39aj'
+})
 
 db.connect();
 
